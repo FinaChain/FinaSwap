@@ -30,10 +30,10 @@ contract FinaSwap is Pausable, AccessControl {
         _grantRole(PAUSER_ROLE, msg.sender);
     }
 
-    event Claim(address target, bytes32 hash, bytes signature, bytes publicKey, uint256 value);
+    event Claim(address target, bytes signer, bytes32 hash, bytes signature, bytes publicKey, uint256 value);
 
-    function claim(address target, bytes32 hash, bytes memory signature) public whenNotPaused
-    {
+    function claim(address target, bytes memory signer, bytes32 hash, bytes memory signature) public whenNotPaused
+    {        
         require(target != address(0), "FinaSwap:claim Target address cannot be zero");
         require(hash[0] != 0, "FinaSwap:claim Signature hash is required");
         require(signature.length == 65, "FinaSwap:claim Invalid signature length. The signature must be exactly 65 bytes");
@@ -62,7 +62,11 @@ contract FinaSwap is Pausable, AccessControl {
         //Concatenate the prefixed public key hash and the first 4 bytes of the double hashed public key
         bytes memory publicKeyAddress = bytes.concat(publicKeyPrefixedHash, publicKeyPart);
 
+        //Check if the derived address matches the given signer
+        require(keccak256(publicKeyAddress) == keccak256(signer), "FinaSwap:claim Invalid signature.");
+
         uint256 balance = _balances[publicKeyAddress];
+
         require(balance > 0, "FinaSwap:claim already swapped");
 
         _balances[publicKeyAddress] = 0;
@@ -70,7 +74,7 @@ contract FinaSwap is Pausable, AccessControl {
 
         _token.mint(target, balance);
 
-        emit Claim(target, hash, signature, publicKey, balance);
+        emit Claim(target, signer, hash, signature, publicKey, balance);
     }
 
     function addBalance(bytes memory source, uint256 balance) public onlyRole(ADMIN_ROLE)
@@ -109,5 +113,5 @@ contract FinaSwap is Pausable, AccessControl {
 
     function unpause() public onlyRole(PAUSER_ROLE) {
         _unpause();
-    }    
+    }
 }
