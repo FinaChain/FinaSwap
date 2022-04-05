@@ -21,15 +21,47 @@
 						"internalType": "bytes1",
 						"name": "prefix",
 						"type": "bytes1"
-					},
-					{
-						"internalType": "uint256",
-						"name": "nativeValue",
-						"type": "uint256"
 					}
 				],
 				"stateMutability": "nonpayable",
 				"type": "constructor"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "target",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "bytes32",
+						"name": "hash",
+						"type": "bytes32"
+					},
+					{
+						"indexed": false,
+						"internalType": "bytes",
+						"name": "signature",
+						"type": "bytes"
+					},
+					{
+						"indexed": false,
+						"internalType": "bytes",
+						"name": "publicKey",
+						"type": "bytes"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "value",
+						"type": "uint256"
+					}
+				],
+				"name": "Claim",
+				"type": "event"
 			},
 			{
 				"anonymous": false,
@@ -192,6 +224,19 @@
 			{
 				"inputs": [
 					{
+						"internalType": "uint256",
+						"name": "balance",
+						"type": "uint256"
+					}
+				],
+				"name": "addSwappedBalance",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "bytes",
 						"name": "source",
 						"type": "bytes"
@@ -245,6 +290,19 @@
 						"internalType": "bytes32",
 						"name": "",
 						"type": "bytes32"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getSwappedBalance",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -328,6 +386,19 @@
 			{
 				"inputs": [
 					{
+						"internalType": "uint256",
+						"name": "balance",
+						"type": "uint256"
+					}
+				],
+				"name": "removeSwappedBalance",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "bytes32",
 						"name": "role",
 						"type": "bytes32"
@@ -357,19 +428,6 @@
 					}
 				],
 				"name": "revokeRole",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "nativeValue",
-						"type": "uint256"
-					}
-				],
-				"name": "setNativeValue",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -507,11 +565,11 @@
 			]
 		},
 		"contracts/FinaSwap.sol": {
-			"keccak256": "0x146854a7cc350ca3de09b20d01461d0275b08bea109a130259c69974b438b150",
+			"keccak256": "0x8da6f7ea905e571f68ba564bd07eb2fd1810a6a37015dc934bab37186e538bbe",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://e7431acdb1a937c7c86c7e8661257c62e27f7b8a9d38de2271ae6f4fb49a47e1",
-				"dweb:/ipfs/QmWhwzUrvzj8bvAChUt5ArAFtSBQqvXqgXSHU38kfiD2tT"
+				"bzz-raw://e07b009277067d3ab797444ccd93708d7a7a83dae5fbca4120883ee35b2b3164",
+				"dweb:/ipfs/QmayV27r9vVK9b1fbfo7zWLRQtLRkCTDaXEPbtH9sksLhz"
 			]
 		},
 		"contracts/interfaces/IECDSA.sol": {
@@ -523,11 +581,11 @@
 			]
 		},
 		"contracts/interfaces/IERC20Mintable.sol": {
-			"keccak256": "0x0f9f438a863b14083e25ec7bd33208b98148d45c06a5ae25dcacbc837d58db6c",
+			"keccak256": "0xfe4ca9ce051b60b35b2043e4b35d168707fd0ca87ba0b0c5548196ba227b9e16",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://55dc655f8038d13ee58b8ecaf62cfe0f1912b8041570a348c469b80ba11e94c7",
-				"dweb:/ipfs/QmS6ctzhWSSCcZ8dW1DszhkRCHmvFgBawDvXHCTYYQVTAP"
+				"bzz-raw://7bdd82fd46acd3124ad7bb18fd8934b17e24d7b84bcb24e116c8856c4890b807",
+				"dweb:/ipfs/QmdVuLFRaW7GV7bddAgo683JXtn8Wz4YtUe539Pth1Vdi6"
 			]
 		},
 		"contracts/utils/BytesUtils.sol": {

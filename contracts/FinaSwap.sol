@@ -17,19 +17,20 @@ contract FinaSwap is Pausable, AccessControl {
     IERC20Mintable private immutable _token;
     bytes1 private immutable _prefix;
 
-    uint256 private _nativeValue;
     mapping(bytes => uint256) private _balances;
+    uint256 private _swappedBalance;
 
-    constructor(IECDSA ecdsa, IERC20Mintable token, bytes1 prefix, uint256 nativeValue)
+    constructor(IECDSA ecdsa, IERC20Mintable token, bytes1 prefix)
     {
         _ecdsa = ecdsa;
         _token = token;
         _prefix = prefix;
-        _nativeValue = nativeValue;
 
         _grantRole(ADMIN_ROLE, msg.sender);
         _grantRole(PAUSER_ROLE, msg.sender);
     }
+
+    event Claim(address target, bytes32 hash, bytes signature, bytes publicKey, uint256 value);
 
     function claim(address target, bytes32 hash, bytes memory signature) public whenNotPaused
     {
@@ -65,14 +66,11 @@ contract FinaSwap is Pausable, AccessControl {
         require(balance > 0, "FinaSwap:claim already swapped");
 
         _balances[publicKeyAddress] = 0;
+        _swappedBalance += balance;
 
         _token.mint(target, balance);
 
-        if (_nativeValue > 0)
-        {
-            (bool sent,) = target.call{value: _nativeValue}("");
-            require(sent, "Failed to send native currency");
-        }
+        emit Claim(target, hash, signature, publicKey, balance);
     }
 
     function addBalance(bytes memory source, uint256 balance) public onlyRole(ADMIN_ROLE)
@@ -85,15 +83,25 @@ contract FinaSwap is Pausable, AccessControl {
         _balances[source] = 0;
     }
 
-    function setNativeValue(uint256 nativeValue) public onlyRole(ADMIN_ROLE)
-    {
-        _nativeValue = nativeValue;
-    }
-
     function balanceOf(bytes memory source) public view returns (uint256)
     {
         return _balances[source];
     }
+
+    function getSwappedBalance() public view returns (uint256)
+    {
+        return _swappedBalance;
+    }
+
+    function addSwappedBalance(uint256 balance) public onlyRole(ADMIN_ROLE)
+    {
+        _swappedBalance += balance;
+    }    
+
+    function removeSwappedBalance(uint256 balance) public onlyRole(ADMIN_ROLE)
+    {
+        _swappedBalance -= balance;
+    }        
 
     function pause() public onlyRole(PAUSER_ROLE) {
         _pause();

@@ -1,0 +1,64 @@
+{
+	"compiler": {
+		"version": "0.8.4+commit.c7e474f2"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "mint",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/interfaces/IERC20Mintable.sol": "IERC20Mintable"
+		},
+		"evmVersion": "istanbul",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/interfaces/IERC20Mintable.sol": {
+			"keccak256": "0xfe4ca9ce051b60b35b2043e4b35d168707fd0ca87ba0b0c5548196ba227b9e16",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://7bdd82fd46acd3124ad7bb18fd8934b17e24d7b84bcb24e116c8856c4890b807",
+				"dweb:/ipfs/QmdVuLFRaW7GV7bddAgo683JXtn8Wz4YtUe539Pth1Vdi6"
+			]
+		}
+	},
+	"version": 1
+}
