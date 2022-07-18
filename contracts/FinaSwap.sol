@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
 
 import "./interfaces/IECDSA.sol";
-import "./interfaces/IERC677BridgeTokenSwapable.sol";
+import "./interfaces/IERC677MultiBridgeSwapableToken.sol";
 import "./utils/BytesUtils.sol";
 
 
@@ -14,13 +14,13 @@ contract FinaSwap is Pausable, AccessControl {
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
     
     IECDSA private immutable _ecdsa;
-    IERC677BridgeTokenSwapable private immutable _token;
+    IERC677MultiBridgeSwapableToken private immutable _token;
     bytes1 private immutable _prefix;
 
     mapping(bytes => uint256) private _balances;
     uint256 private _swappedBalance;
 
-    constructor(IECDSA ecdsa, IERC677BridgeTokenSwapable token, bytes1 prefix)
+    constructor(IECDSA ecdsa, IERC677MultiBridgeSwapableToken token, bytes1 prefix)
     {
         _ecdsa = ecdsa;
         _token = token;
