@@ -2,5 +2,5 @@
 pragma solidity ^0.8.4;
 
 interface IERC677MultiBridgeSwapableToken {
-    function swap(address _to, uint256 _amount) public;
+    function swap(address _to, uint256 _amount) external;
 }
