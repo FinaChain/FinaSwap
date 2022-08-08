@@ -37,4 +37,16 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+var swapConfiguration = app.Services.GetRequiredService<IOptions<SwapConfiguration>>();
+Console.WriteLine("---- Configuration ----");
+Console.WriteLine("Contract address: {0}", swapConfiguration.Value.ContractAddress);
+Console.WriteLine("RPC endpoint: {0}", swapConfiguration.Value.RpcEndpoint);
+Console.WriteLine("ChainId: {0}", swapConfiguration.Value.ChainId);
+Console.WriteLine("Decimal places: {0}", swapConfiguration.Value.DecimalPlaces);
+Console.WriteLine("Prefix: {0}", swapConfiguration.Value.Prefix);
+Console.WriteLine("Ether amount: {0}", swapConfiguration.Value.EtherAmountWei);
+Console.WriteLine("Start date: {0}", swapConfiguration.Value.StartDate);
+Console.WriteLine("-----------------------");
+
+
 app.Run();
