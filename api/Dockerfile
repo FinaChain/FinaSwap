@@ -4,10 +4,10 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["api/FinaSwap.Api.csproj", "FinaSwap.Api/"]
+COPY ["api/FinaSwap.Api.csproj", "FinaSwap.Api/api/"]
 RUN dotnet restore "FinaSwap.Api/FinaSwap.Api.csproj"
 COPY . .
-WORKDIR "/src/FinaSwap.Api"
+WORKDIR "/src/FinaSwap.Api/api"
 RUN dotnet build "FinaSwap.Api.csproj" -c Release -o /app/build
 
 FROM build AS publish
